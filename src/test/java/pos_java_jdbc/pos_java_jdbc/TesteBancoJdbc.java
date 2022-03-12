@@ -1,8 +1,10 @@
 package pos_java_jdbc.pos_java_jdbc;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.Test;
 
-import conexaojdbc.SingleConnection;
 import dao.UserPosDAO;
 import model.Userposjava;
 
@@ -19,4 +21,74 @@ public class TesteBancoJdbc {
 		
 		userPosDAO.salvar(userposjava);
 	}
+	
+	@Test
+	public void initlistar() {
+		UserPosDAO dao = new UserPosDAO();
+		List<Userposjava> list;
+		try {
+			list = dao.listar();
+			
+			for (Userposjava userposjava : list) {
+				System.out.println(userposjava);
+				System.out.println("-------------------------");
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	public void initBuscar() {
+		
+		UserPosDAO dao = new UserPosDAO();
+		
+		try {
+			Userposjava userposjava = dao.buscar(5L);
+			
+			System.out.println(userposjava);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
