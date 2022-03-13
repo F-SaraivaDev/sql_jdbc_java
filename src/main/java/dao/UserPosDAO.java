@@ -52,15 +52,15 @@ public class UserPosDAO {
 			userposjava.setId(resultado.getLong("id"));
 			userposjava.setNome(resultado.getString("nome"));
 			userposjava.setEmail(resultado.getString("email"));
-			
+
 			list.add(userposjava);
 		}
 
 		return list;
 
 	}
-	
-	public Userposjava buscar (Long id) throws SQLException {
+
+	public Userposjava buscar(Long id) throws SQLException {
 
 		Userposjava retorno = new Userposjava();
 
@@ -73,30 +73,34 @@ public class UserPosDAO {
 			retorno.setId(resultado.getLong("id"));
 			retorno.setNome(resultado.getString("nome"));
 			retorno.setEmail(resultado.getString("email"));
-			
+
 		}
 
 		return retorno;
 
 	}
 
+	public void atualizar(Userposjava userposjava) {
+
+		String sql = "update userposjava set nome = ? where id = " + userposjava.getId();
+
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, userposjava.getNome());
+
+			statement.execute();
+			connection.commit();
+
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
